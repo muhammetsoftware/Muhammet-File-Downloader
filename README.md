@@ -13,3 +13,5 @@ How to Use?
 3. After the download process is complete, you can use your file safely.
 
 NOTE: This program is on pre-developement stage and some errors may occur.
+
+If you want to install this software with an package please check files
