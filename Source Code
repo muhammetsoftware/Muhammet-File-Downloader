@@ -1,0 +1,26 @@
+Source code:
+
+import requests
+import time
+
+def download_file(url, local_filename):
+    with requests.get(url, stream=True) as r:
+        r.raise_for_status()
+        total_size = int(r.headers.get('content-length', 0))
+        downloaded_size = 0
+        start_time = time.time()
+        with open(local_filename, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=8192):
+                f.write(chunk)
+                downloaded_size += len(chunk)
+                elapsed_time = time.time() - start_time
+                speed = downloaded_size / elapsed_time
+                remaining_size = total_size - downloaded_size
+                remaining_time = remaining_size / speed if speed != 0 else float('inf')
+                print(f"Total Size: {total_size / (1024 * 1024):.2f} MB | Downloaded: {downloaded_size / (1024 * 1024):.2f} MB | Speed: {speed / (1024 * 1024):.2f} MB/s | Estimated Time Remaining: {remaining_time:.2f} seconds", end='\r')
+
+# Kullanıcıdan indirme linkini girmesini iste
+url = input("Please enter the download link: ")
+local_filename = url.split('/')[-1]
+
+download_file(url, local_filenam
